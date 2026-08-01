@@ -2,127 +2,101 @@
 
 Personal AI agent skills and workflows for coding assistants.
 
-## Skills
+## Available skills
 
-- [`project-standards-setup`](skills/project-standards-setup/SKILL.md) — configure language-specific project standards, naming conventions, deterministic tooling, pre-commit hooks, VS Code/Dev Containers, README tasks with `xc`, and licensing.
-- [`suggestion-first-changes`](skills/suggestion-first-changes/SKILL.md) — make AI agents default to suggestions and plans instead of editing files unless explicitly asked.
+| Skill | Purpose |
+| --- | --- |
+| [`project-standards-setup`](skills/project-standards-setup/SKILL.md) | Configure language-specific project standards: naming conventions, tooling, pre-commit hooks, VS Code, Dev Containers, `xc` README tasks, and licensing. |
+| [`suggestion-first-changes`](skills/suggestion-first-changes/SKILL.md) | Make agents default to suggestions/plans instead of editing files unless explicitly asked. |
 
-## Always-on safety instructions
+## Recommended setup
 
-Skills are usually loaded on demand. That means a skill is not the right place for rules that must apply to every interaction.
+Use **copying**, not symlinking. This works better with Dev Containers and avoids path issues between host and container filesystems.
 
-For the suggestion-first policy, use both:
+Prefer the shared Agent Skills location:
 
-1. the [`suggestion-first-changes`](skills/suggestion-first-changes/SKILL.md) skill, for detailed behavior when relevant
-2. `AGENTS.md` / `CLAUDE.md` context instructions, so agents see the policy at startup
+```text
+~/.agents/skills/
+```
 
-This repo includes:
+This keeps the skills agent-agnostic instead of tying them to one tool.
 
-- [`AGENTS.md`](AGENTS.md) — shared always-on instructions for Pi, Codex-style agents, and other agents that read `AGENTS.md`
-- [`CLAUDE.md`](CLAUDE.md) — Claude-style context file that points to `AGENTS.md`
+For best results, install both:
 
-### Install always-on instructions globally
+1. **Always-on instructions** via `AGENTS.md`
+2. **Skills** via `~/.agents/skills/`
+
+The always-on file gives agents the core suggestion-first rule at startup. The skills provide detailed workflows when loaded.
+
+---
+
+## 1. Install always-on instructions
+
+`AGENTS.md` tells agents to default to suggestions and not change files unless explicitly asked.
 
 From this repo:
 
 ```bash
-# Pi global context
-mkdir -p ~/.pi/agent
-cp AGENTS.md ~/.pi/agent/AGENTS.md
-
-# Shared/Codex-style global context, if supported by your agent
-mkdir -p ~/.codex
-cp AGENTS.md ~/.codex/AGENTS.md
-
-# Claude-style global context, if supported by your setup
-mkdir -p ~/.claude
-cp CLAUDE.md ~/.claude/CLAUDE.md
+mkdir -p ~/.agents
+cp AGENTS.md ~/.agents/AGENTS.md
 ```
 
-If those files already exist, do not blindly overwrite them. Merge the suggestion-first policy into the existing file instead.
-
-### Install always-on instructions into a project
-
-From a project root, replacing `/path/to/ai_skills` with this repo path:
+For a specific project, copy it into the project root:
 
 ```bash
 cp /path/to/ai_skills/AGENTS.md ./AGENTS.md
-cp /path/to/ai_skills/CLAUDE.md ./CLAUDE.md
 ```
 
-Or symlink them so updates in this repo are reflected:
+> If an `AGENTS.md` file already exists, merge the content manually instead of overwriting it.
 
-```bash
-ln -sfn /path/to/ai_skills/AGENTS.md ./AGENTS.md
-ln -sfn /path/to/ai_skills/CLAUDE.md ./CLAUDE.md
-```
+---
 
-## Use these skills with Pi
-
-Pi discovers skills from several locations, including:
-
-- `~/.pi/agent/skills/`
-- `~/.agents/skills/`
-- project-local `.pi/skills/`
-- project-local `.agents/skills/`
-- explicit `--skill <path>` arguments
-
-### Recommended: symlink this repo into Pi's global skills
+## 2. Install skills globally
 
 From this repo:
 
 ```bash
-mkdir -p ~/.pi/agent/skills
-ln -sfn "$(pwd)/skills/project-standards-setup" ~/.pi/agent/skills/project-standards-setup
-ln -sfn "$(pwd)/skills/suggestion-first-changes" ~/.pi/agent/skills/suggestion-first-changes
-```
-
-Then restart Pi. The skills should be available automatically when the task matches. For the suggestion-first policy, also install `AGENTS.md` globally or in the project so the rule is present at startup.
-
-You can manually load skills with:
-
-```text
-/skill:project-standards-setup
-/skill:suggestion-first-changes
-```
-
-### Alternative: use the shared Agent Skills location
-
-This can be useful if multiple agents support the Agent Skills layout:
-
-```bash
 mkdir -p ~/.agents/skills
-ln -sfn "$(pwd)/skills/project-standards-setup" ~/.agents/skills/project-standards-setup
-ln -sfn "$(pwd)/skills/suggestion-first-changes" ~/.agents/skills/suggestion-first-changes
+
+cp -R skills/project-standards-setup ~/.agents/skills/project-standards-setup
+cp -R skills/suggestion-first-changes ~/.agents/skills/suggestion-first-changes
 ```
 
-### Project-local install
+Restart your agent after copying.
 
-To make the skills available only inside a specific project, run this from that project root, replacing `/path/to/ai_skills` with this repo path:
+---
+
+## 3. Install skills for one project only
+
+Use this when you want the skills available only inside one repo.
+
+From the target project root, replacing `/path/to/ai_skills` with this repo path:
 
 ```bash
 mkdir -p .agents/skills
-ln -sfn /path/to/ai_skills/skills/project-standards-setup .agents/skills/project-standards-setup
-ln -sfn /path/to/ai_skills/skills/suggestion-first-changes .agents/skills/suggestion-first-changes
+
+cp -R /path/to/ai_skills/skills/project-standards-setup .agents/skills/project-standards-setup
+cp -R /path/to/ai_skills/skills/suggestion-first-changes .agents/skills/suggestion-first-changes
 ```
 
-Or for Pi-specific project skills:
+Restart your agent after copying.
 
-```bash
-mkdir -p .pi/skills
-ln -sfn /path/to/ai_skills/skills/project-standards-setup .pi/skills/project-standards-setup
-ln -sfn /path/to/ai_skills/skills/suggestion-first-changes .pi/skills/suggestion-first-changes
+---
+
+## Manual skill loading
+
+Some agents support explicit skill loading for a single session. Use the paths in this repo if your agent supports that mode:
+
+```text
+/path/to/ai_skills/skills/project-standards-setup
+/path/to/ai_skills/skills/suggestion-first-changes
 ```
 
-### Load explicitly for one Pi session
+---
 
-```bash
-pi --skill "$(pwd)/skills/project-standards-setup" --skill "$(pwd)/skills/suggestion-first-changes"
-```
+## Skill layout
 
-## Use with other agents
-
-This repo uses the Agent Skills-style layout:
+This repo uses the Agent Skills-style folder layout:
 
 ```text
 skills/
@@ -132,32 +106,7 @@ skills/
     SKILL.md
 ```
 
-For other agents, use whichever skill directory they support and symlink the skill folders into it.
-
-Common examples:
-
-```bash
-# Shared Agent Skills location
-mkdir -p ~/.agents/skills
-ln -sfn "$(pwd)/skills/project-standards-setup" ~/.agents/skills/project-standards-setup
-ln -sfn "$(pwd)/skills/suggestion-first-changes" ~/.agents/skills/suggestion-first-changes
-
-# Claude-style skills directory, if used by your setup
-mkdir -p ~/.claude/skills
-ln -sfn "$(pwd)/skills/project-standards-setup" ~/.claude/skills/project-standards-setup
-ln -sfn "$(pwd)/skills/suggestion-first-changes" ~/.claude/skills/suggestion-first-changes
-
-# Codex-style skills directory, if used by your setup
-mkdir -p ~/.codex/skills
-ln -sfn "$(pwd)/skills/project-standards-setup" ~/.codex/skills/project-standards-setup
-ln -sfn "$(pwd)/skills/suggestion-first-changes" ~/.codex/skills/suggestion-first-changes
-```
-
-Restart the agent after adding or changing skills or context files so it can rediscover them.
-
-## Verify the skill file
-
-Each skill should start with frontmatter like this:
+Each `SKILL.md` starts with frontmatter:
 
 ```yaml
 ---
@@ -166,4 +115,8 @@ description: ...
 ---
 ```
 
-Pi uses the `description` to decide when to load the skill, so keep it specific and keyword-rich.
+Agents use the `description` to decide when to load a skill, so descriptions should stay specific and keyword-rich.
+
+## Updating installed skills
+
+After editing this repo, rerun the relevant copy commands above and restart the agent.
