@@ -92,6 +92,16 @@ Remaining:
 - Use `References:` for files, commands, artifacts, logs, reports, generated outputs, or external docs a UI may link to.
 - For long logs or verbose output, include key details inline and reference the exact command, file, artifact, or log location for full detail.
 
+## Visual separation
+
+- Separate major sections with a blank line.
+- Keep section headings on their own line using the exact standard heading text, such as `Summary:` or `Next actions:`.
+- Do not merge multiple standard sections into one paragraph.
+- Keep bullets as short as practical without omitting information that could materially affect decisions, risks, validation, approval, or next actions.
+- For long or complex responses, use `---` between major groups only when it improves readability.
+- Do not use decorative dividers in short responses.
+- UI renderers may treat each standard section as a separate card, panel, or collapsible block.
+
 ## Options and actions
 
 - Use `Options:` for multiple selectable paths, design choices, tradeoffs, or brainstorming outcomes.
