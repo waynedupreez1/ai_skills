@@ -86,19 +86,9 @@ For a specific project, copy it into the project root:
 cp /path/to/ai_skills/AGENTS.md ./AGENTS.md
 ```
 
-> If an `AGENTS.md` file already exists, merge the content manually instead of overwriting it.
-
 ## 2. Install skills globally
 
 From this repo:
-
-```bash
-mkdir -p ~/.agents/skills
-
-cp -R skills/approval-first-workflow ~/.agents/skills/approval-first-workflow
-cp -R skills/project-conventions ~/.agents/skills/project-conventions
-cp -R skills/ui-friendly-response ~/.agents/skills/ui-friendly-response
-```
 
 Or copy all skills at once:
 
@@ -114,14 +104,6 @@ Restart your agent after copying.
 Use this when you want the skills available only inside one repo.
 
 From the target project root, replacing `/path/to/ai_skills` with this repo path:
-
-```bash
-mkdir -p .agents/skills
-
-cp -R /path/to/ai_skills/skills/approval-first-workflow .agents/skills/approval-first-workflow
-cp -R /path/to/ai_skills/skills/project-conventions .agents/skills/project-conventions
-cp -R /path/to/ai_skills/skills/ui-friendly-response .agents/skills/ui-friendly-response
-```
 
 Or copy all skills at once:
 
@@ -141,32 +123,3 @@ Some agents support explicit skill loading for a single session. Use the paths i
 /path/to/ai_skills/skills/project-conventions
 /path/to/ai_skills/skills/ui-friendly-response
 ```
-
-## Skill layout
-
-This repo uses the Agent Skills-style folder layout:
-
-```text
-skills/
-  approval-first-workflow/
-    SKILL.md
-  project-conventions/
-    SKILL.md
-  ui-friendly-response/
-    SKILL.md
-```
-
-Each `SKILL.md` starts with frontmatter:
-
-```yaml
----
-name: skill-name
-description: ...
----
-```
-
-Agents use the `description` to decide when to load a skill, so descriptions should stay specific and keyword-rich.
-
-## Updating installed skills
-
-After editing this repo, rerun the relevant copy commands above and restart the agent.

@@ -1,6 +1,6 @@
 ---
 name: project-conventions
-description: Audit or plan repository conventions on request. Use when explicitly asked to standardize a repo, set up project conventions, or plan formatter/linter/typecheck/test commands, hooks, editor/container config, README tasks, CI recommendations, or licensing.
+description: Audit or plan repo standards. Use when asked to standardize tooling, commands, formatters, linters, type checks, tests, hooks, editor/devcontainer config, CI, docs, naming, or licensing.
 disable-model-invocation: true
 ---
 

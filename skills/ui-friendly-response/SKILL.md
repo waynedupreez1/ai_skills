@@ -1,6 +1,6 @@
 ---
 name: ui-friendly-response
-description: Use when responses should be consistent, human-readable, and UI-friendly across skills and workflows. Provides stable section names and status values for inspection, proposal, approval, application, completion, blocked states, selectable options, and branching actions.
+description: Format responses with stable statuses and sections. Use for clear human/UI-readable summaries, findings, proposals, approvals, options, validation, completion, and blocked states.
 ---
 
 # UI-Friendly Response

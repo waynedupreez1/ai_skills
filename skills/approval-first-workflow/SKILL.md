@@ -1,6 +1,6 @@
 ---
 name: approval-first-workflow
-description: Enforce an approval-first workflow for coding agents. Use whenever a request could modify files, dependencies, configuration, commands, Git state, project structure, or workflow behavior. Always inspect, state assumptions, and propose first; mutate only after the user accepts the proposal.
+description: Require inspect-plan-approve before workspace changes. Use for requests that may edit files, run mutating commands, change dependencies, config, Git state, or workflow behavior.
 ---
 
 # Approval-First Workflow
