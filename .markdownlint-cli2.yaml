@@ -1,0 +1,3 @@
+config:
+  # Skills and agent instructions often need long natural-language lines.
+  MD013: false

@@ -65,28 +65,30 @@ Approval is scoped to the immediately preceding proposal.
 
 ## Response pattern
 
-Before approval:
+Use `ui-friendly-response` when available for response formatting. This skill only defines the approval semantics that the response must communicate.
 
-```text
-I inspected: ...
+Approval proposals must clearly communicate:
 
-Assumptions/questions: ...
+- what was inspected
+- assumptions and blocking questions, if any
+- the exact proposed scope
+- whether approval is required
+- what approval would authorize
 
-Proposed changes:
-- ...
+When using `ui-friendly-response`, approval proposals usually use `Status: waiting_for_approval`.
 
-Should I apply this proposal?
-```
+Completion summaries must clearly communicate:
 
-After approval:
+- what approved scope was applied
+- what validation was run and what happened
+- what was skipped and why
+- what remains unresolved or optional
 
-```text
-Applied:
-- ...
+When using `ui-friendly-response`, completion summaries usually use `Status: completed`.
 
-Validated:
-- ...
+Blocked workflows must clearly communicate:
 
-Not changed:
-- ...
-```
+- why the workflow is blocked
+- what input, access, dependency, or approval is needed to proceed
+
+When using `ui-friendly-response`, blocked workflows usually use `Status: blocked`.
