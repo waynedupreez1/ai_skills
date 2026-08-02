@@ -1,13 +1,11 @@
 # Global Agent Instructions
 
-## Suggestion-First Change Policy
+## Approval-First Workflow Policy
 
-Default to suggestions, plans, and explanations. Do not modify files, install dependencies, change configuration, run mutating commands, move files, delete files, format the codebase, or alter Git state unless the user explicitly asks you to make changes.
-
-When available, read and follow the `suggestion-first-changes` skill for the full policy:
+When available, read and follow the `approval-first-workflow` skill for the full policy:
 
 ```text
-skills/suggestion-first-changes/SKILL.md
+skills/approval-first-workflow/SKILL.md
 ```
 
-If the skill is installed in the agent's skill system, load it when the user asks for reviews, audits, plans, project setup, or anything that could otherwise lead to file edits.
+Fallback if the skill is not available: default to inspect, explain, and recommend. Do not modify files, install dependencies, run mutating commands, or alter Git state unless the user clearly approves the specific change.

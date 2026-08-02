@@ -7,7 +7,7 @@ Personal AI agent skills and workflows for coding assistants.
 | Skill | Purpose |
 | --- | --- |
 | [`project-standards-setup`](skills/project-standards-setup/SKILL.md) | Configure language-specific project standards: naming conventions, tooling, pre-commit hooks, VS Code, Dev Containers, `xc` README tasks, and licensing. |
-| [`suggestion-first-changes`](skills/suggestion-first-changes/SKILL.md) | Make agents default to suggestions/plans instead of editing files unless explicitly asked. |
+| [`approval-first-workflow`](skills/approval-first-workflow/SKILL.md) | Make agents default to suggestions/plans instead of editing files unless explicitly approved. |
 
 ## Recommended setup
 
@@ -26,7 +26,7 @@ For best results, install both:
 1. **Always-on instructions** via `AGENTS.md`
 2. **Skills** via `~/.agents/skills/`
 
-The always-on file gives agents the core suggestion-first rule at startup. The skills provide detailed workflows when loaded.
+The always-on file gives agents the core approval-first rule at startup. The skills provide detailed workflows when loaded.
 
 ---
 
@@ -59,7 +59,7 @@ From this repo:
 mkdir -p ~/.agents/skills
 
 cp -R skills/project-standards-setup ~/.agents/skills/project-standards-setup
-cp -R skills/suggestion-first-changes ~/.agents/skills/suggestion-first-changes
+cp -R skills/approval-first-workflow ~/.agents/skills/approval-first-workflow
 ```
 
 Restart your agent after copying.
@@ -76,7 +76,7 @@ From the target project root, replacing `/path/to/ai_skills` with this repo path
 mkdir -p .agents/skills
 
 cp -R /path/to/ai_skills/skills/project-standards-setup .agents/skills/project-standards-setup
-cp -R /path/to/ai_skills/skills/suggestion-first-changes .agents/skills/suggestion-first-changes
+cp -R /path/to/ai_skills/skills/approval-first-workflow .agents/skills/approval-first-workflow
 ```
 
 Restart your agent after copying.
@@ -89,7 +89,7 @@ Some agents support explicit skill loading for a single session. Use the paths i
 
 ```text
 /path/to/ai_skills/skills/project-standards-setup
-/path/to/ai_skills/skills/suggestion-first-changes
+/path/to/ai_skills/skills/approval-first-workflow
 ```
 
 ---
@@ -102,7 +102,7 @@ This repo uses the Agent Skills-style folder layout:
 skills/
   project-standards-setup/
     SKILL.md
-  suggestion-first-changes/
+  approval-first-workflow/
     SKILL.md
 ```
 
