@@ -1,5 +1,13 @@
 # Global Agent Instructions
 
+## UI-Friendly Response Policy
+
+When available, read and follow the `ui-friendly-response` skill for all interactions:
+
+```text
+skills/ui-friendly-response/SKILL.md
+```
+
 ## Approval-First Workflow Policy
 
 When available, read and follow the `approval-first-workflow` skill for the full policy:
