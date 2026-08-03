@@ -1,6 +1,6 @@
 ---
 name: ui-friendly-response
-description: Format responses with stable statuses and sections. Use for clear human/UI-readable summaries, findings, proposals, approvals, options, validation, completion, and blocked states.
+description: Always use for all user interactions. Format responses with stable statuses and sections for clear human/UI-readable communication.
 ---
 
 # UI-Friendly Response
