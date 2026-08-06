@@ -13,14 +13,10 @@
   ],
 
   "mounts": [
-    "source=${localEnv:HOME}/.ssh/ssh-auth-sock,target=/ssh-agent,type=bind",
+    "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
     "source=${localEnv:HOME}/.agents,target=/root/.agents,type=bind,readonly",
     "source=${localEnv:HOME}/.agent-devcontainer/pi/agent,target=/root/.pi/agent,type=bind"
   ],
-
-  "remoteEnv": {
-    "SSH_AUTH_SOCK": "/ssh-agent"
-  },
 
   "customizations": {
     "vscode": {
